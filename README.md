@@ -1,3 +1,5 @@
+test test
+
 # am10.mam2023
 
 Code and datafiles used in the AM10 course
