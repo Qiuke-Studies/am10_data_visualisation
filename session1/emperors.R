@@ -29,7 +29,7 @@ emperors %>%
   ) +
   labs(
     title = "Cause of death of Roman Emperors",
-    x= "number of emperors")+
+    x= "number of emperors") +
   NULL
 
 # Plot 2
@@ -56,7 +56,7 @@ emperors %>%
     axis.title.y = element_blank(),
     legend.position = "none"
   ) +
-  theme(text=element_text(size=16, family="Lato"))+
+  theme(text=element_text(size=16, family="Noto Serif"))+
   labs(
     title = "Cause of death of Roman Emperors",
     x= "number of emperors")+

@@ -1,6 +1,6 @@
 ---
 title: "Reduce mental burden in plots"
-author: "Your name goes here"
+author: "Mingqi Yin"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -40,13 +40,12 @@ library(ggrepel)
 library(patchwork)
 library(gghighlight)
 library(skimr)
-
-# remotes::install_github("kjhealy/nycdogs")
+library(remotes)
+install_github("kjhealy/nycdogs")
 library(nycdogs)
 library(sf) # for geospatial visualisation
 
-loadfonts(device="win")
-# loadfonts(device="pdf") if you have a mac
+loadfonts(device="pdf")
 
 ```
 
@@ -58,16 +57,14 @@ loadfonts(device="win")
 4. Use the variable you just created in the `fill` aesthetic of the ggplot call
 5. Finally, use `scale_fill_manual()` to add the fill colours grey70 = #B3B3B3 for the background, and tomato = #FF6347 to higlights. my colours <- c("#B0B0B0D0", "#D55E00D0")`.
 
-```{r, emperors, eval=FALSE}
-# make sure you remove eval=FALSE before knitting the document
-
+```{r, emperors}
 # source of data https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-13
 url <- "https://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-08-13/emperors.csv"
 emperors <- vroom(url)
 
-
 emperor_killers <- emperors %>%
-  count(killer) 
+  count(killer) %>%
+  arrange(desc(n))
 
 #if you want to use hex codes, gplots::col2hex("colour name") will give you hex code
 # grey70 = #B3B3B3, tomato = #FF6347
@@ -79,16 +76,15 @@ emperor_killers <- emperors %>%
 #define colours to use: grey70 for everything, tomato for assassination
 my_colours <- c("grey70", "tomato")
 
-
 emperor_killers %>% 
   mutate(
-    ___________ = ifelse(killer == "___________", TRUE, FALSE),
+    wife = ifelse(killer == "Wife", TRUE, FALSE),
     # use `fct_inorder()` to maintain the way we sorted the data
     killer = fct_inorder(killer)
   ) %>%
-  ggplot(aes(x = n, y = killer, fill = ___________)) +
+  ggplot(aes(x = n, y = killer, fill = wife)) +
   geom_col() +
-  scale_fill_manual(values = my_colours)+
+  scale_fill_manual(values = my_colours) +
   geom_text(
     aes(label = n, x = n - .25), 
     color = "white", 
@@ -100,8 +96,8 @@ emperor_killers %>%
     axis.title.y = element_blank(), 
     legend.position = "none" 
   ) +
-  ___________(values = ___________) +
-  xlab("number of emperors")
+  xlab("number of emperors") +
+  NULL
 ```
 
 
@@ -116,9 +112,9 @@ emperor_killers %>%
 
 set.seed(42)
 
-some_countries <- gapminder$country %>% 
+some_countries <- gapminder $ country %>% 
   levels() %>% 
-  sample(20) 
+  sample(20)
 
 # what if we try to add label for all countries?
 gapminder %>%
@@ -148,7 +144,7 @@ gapminder %>%
 gapminder %>%
   filter(year == 2007) %>%
   mutate(
-    label = ifelse(______  %in% _____, as.character(country), _____________ )
+    label = ifelse(country %in% some_countries, as.character(country), "")
   ) %>%
   ggplot(aes(log(gdpPercap), lifeExp)) +
     geom_point(

@@ -8,8 +8,6 @@ When you’re trying to plot with a font that is not actually installed on your 
 
 If the given packages don’t help you find the fonts that you need, maybe try downloading the Google fonts from GitHub
 
-
-
 DOWNLOAD GOOGLE FONTS THROUGH GITHUB
 
 1.    Open this GitHub repo with all google fonts https://github.com/google/fonts 
