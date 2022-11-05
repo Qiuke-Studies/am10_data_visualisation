@@ -18,3 +18,4 @@ Code and datafiles used in the AM10 course
 | Study Group   | SG Members           |Github ID                      |Github Repo for final project        | URL address for final project       |Date Added     |  
 |:--------------|:---------------------|:------------------------------------------------------|:-----------------------|:-------------------------------------|:-----------------------| 
 | 00     |Member x, member y |kostis-christodoulou |<https://github.com/>|<N/A>     | 2022-11-01 |
+| 10     |Lucia Cai, Neha Dagade, Piotr Rudniak, Gian Marco Serra, Mingqi Yin |qiuke_studies |<https://github.com/Qiuke-Studies/am10_group_project>| <N/A>     | 2022-11-05 |
