@@ -1,0 +1,136 @@
+---
+title: "Individual Assignment 1"
+author: "Mingqi Yin"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: true
+    toc: yes
+    toc_float: yes
+---
+
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+```{r libraries, include=FALSE}
+library(tidyverse)
+library(extrafont)
+library(vroom)
+library(ggtext)
+library(ggrepel)
+library(patchwork)
+library(gghighlight)
+library(skimr)
+library(remotes)
+library(ggplot2)
+library(dplyr)
+library(ggdogs)
+
+loadfonts(device="pdf")
+
+```
+
+# Quesiton 1: Grading JP Morgan Visualisation
+
+Text:
+
+-   6-12 descriptive title: 2
+
+-   Subtitle providing additional information: 2
+
+-   Text size readable: 1 (some covered by lines)
+
+-   Text horizontal: 2
+
+-   Data labelled directly: 1 (not labelled directly)
+
+-   Labels used sparingly: 1 (crammed)
+
+Arrangement:
+
+-   Accurate proportions: 2
+
+-   Intentionally ordered: 0 (no visible ordering)
+
+-   Axis intervals are equidistant: 2
+
+-   Graph is 2D: 2
+
+-   Display is free from decoration: 2
+
+Colour:
+
+-   Colour scheme is intentional: 0 (no visible intentions in colour scheme)
+
+-   Colour used to highlight key patterns: 0 (no highlighting of key patterns)
+
+-   Colour is legible when printed in black and white: 0 (not legible)
+
+-   Colour is legible for people with colourblindness: 0 (not legible)
+
+-   Text sufficiently contrasts background: 2
+
+Lines:
+
+-   Gridlines are muted: 2
+
+-   Graph does not have border line: 2
+
+-   Axes do not have unnecessary tick marks or axis lines: 2
+
+-   Graph has one horizontal and one vertical axis: 2
+
+Overall:
+
+-   Graph highlights significant finding or conclusion: 2
+
+-   Type of graph is appropriate for data: 2
+
+-   Graph has appropriate level of precision: 1 (may be too precise)
+
+-   Individual chart elements work together to reinforce the overarching takeaway: 1 (too many lines to illustrate the same idea)
+
+# Question 2 - Ugly Graph
+
+```{r, bad_graph}
+
+library(readr)
+atheism <- read_csv("atheism copy.csv")
+
+atheism <- atheism %>%
+  mutate(binary = ifelse(test = response == "non-atheist",
+                         yes = 0,
+                         no = 1))
+
+sum_atheism <- atheism %>%
+  group_by(nationality, year, binary) %>%
+  summarise(count = n())
+
+ggplot(data = sum_atheism,
+       aes(x = binary, y = count, colour = nationality)) + # binary not being a factor variable
+  geom_dog(dog = "husky_2", size = 15) + 
+  facet_wrap(~nationality) + 
+  labs(x = "dog atheist or not", y = "dog number")
+
+```
+
+# Question 3 - Stop and Search
+
+```{r}
+stop_and_search <- read_csv("stop_and_search.csv")
+```
