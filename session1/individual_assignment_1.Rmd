@@ -52,6 +52,8 @@ library(vroom)
 library(extrafont)
 library(ggtext)
 
+library(ggThemeAssist)
+
 loadfonts(device="win")
 ```
 
