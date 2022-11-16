@@ -19,31 +19,11 @@ files
 #read them all in using vroom::vroom()
 stop_search_data <- vroom(files, id = "source")
 
-# Uncomment the following lines if you want to see how much faster vroom is
-
-# library(microbenchmark)
-# mbm = microbenchmark(
-#   readr =  map_dfr(files, read_csv, .id = "source"),
-#   vroom =  vroom(files, id = "source"),
-#   times=10
-# )
-# mbm
-
-# Unit: milliseconds
-# expr       min        lq      mean    median        uq       max neval cld
-# readr 3676.9319 3761.8027 3944.5699 3791.1760 4055.4460 4626.9870    10   b
-# vroom  855.9414  864.9085  910.1052  905.8456  948.0134  975.8617    10  a 
-
-#read them all in using vroom::vroom()
-stop_search_data <- vroom(files, id = "source")
-
-
-
 # Use janitor to clean names, and add more variables
 stop_search_all <- stop_search_data %>%
   janitor::clean_names() %>% 
   mutate(month = month(date),
-         month_name = month(date, label=TRUE, abbr = TRUE),
+         month_name = month(date, label = TRUE, abbr = TRUE),
          year= year(date),
          month_year = paste0(year, "-",month_name)
   ) %>% 
